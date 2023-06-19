@@ -1,14 +1,8 @@
 # DNA-methylation-status-governs-repeat-restriction-by-the-HUSH-MORC2-complex
 
-## Heatmaps:
-All heatmaps were created using DeepTools' computeMatrix and plotHeatmap. An example of how they were created is as follows:
-```
-computeMatrix scale-regions -m 6000 -p 4 -S <BigWig signal> -R <BED coordinates of genomic regions> -a 1000 -b 1000 -o <matrix_file>
-plotHeatmap -m <matrix_file> --sortRegions descend --colorMap "Reds" -o <heatmap>.pdf
-```
+## CUT&RUN data analysis
 
-
-## Peak Calling using SEACR:
+### Peak Calling using SEACR:
 Prior to peak calling, we performed pre-processing of the BAM files as suggested by the creators of SEACR on their GitHub page (https://github.com/FredHutch/SEACR):
   ```
         bedtools bamtobed -bedpe -i <input_BAM> > <output_BED>
@@ -23,7 +17,7 @@ bash SEACR_1.3.sh <experimental_BEDGRAPH> <Control_BEDGRAPH> norm stringent <Pea
 ```
 
 
-## Peak Calling using HOMER:
+### Peak Calling using HOMER:
 To establish a set of baseline peaks we performed the following steps:
 1. Created tagDirectories using HOMER's makeTagDirectory:
 ```
@@ -41,7 +35,7 @@ findPeaks <control_H3K9me3_signal_tagDir> -style histone -o <output_baseline_pea
 
 5. Finally, both the baseline peaks and knockdown specific peaks were concatenated and merged in order to obtain an extensive peak list.
 
-## Differential enrichment over peaks:
+### Differential enrichment over peaks:
 - To get the differential enrichment over the called peaks, we employed getDifferentialPeaks from HOMER in both directions - using the control as the background and the knockdown as the target, and vice versa.
 ```
 1. getDifferentialPeaks <output_merged_peaks>.txt <LacZ_H3K9me3_tagDir> <HUSHi_H3K9me3_tagDir> -F 0
@@ -53,3 +47,11 @@ findPeaks <control_H3K9me3_signal_tagDir> -style histone -o <output_baseline_pea
 4. All the peaks were sorted according to direction in which they show enrichment - lost in CRISPRi, not significant or gained in CRISPRi.
 
 5. Finally, the pValues and fold changes were extracted to create a volcanoPlot.
+
+
+### Heatmaps:
+All heatmaps were created using DeepTools' computeMatrix and plotHeatmap. An example of how they were created is as follows:
+```
+computeMatrix scale-regions -m 6000 -p 4 -S <BigWig signal> -R <BED coordinates of genomic regions> -a 1000 -b 1000 -o <matrix_file>
+plotHeatmap -m <matrix_file> --sortRegions descend --colorMap "Reds" -o <heatmap>.pdf
+```
