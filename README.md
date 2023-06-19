@@ -2,6 +2,7 @@
 
 ## Bulk-RNAseq analysis
 
+
 ### Processing of FastQ files
 All Bulk-RNAseq FastQ files were processed using the Snakemake pipeline **_Bulk-RNAseq_analysis.sn_**. The pipeline was run using the following command:
 ```
