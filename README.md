@@ -1,4 +1,4 @@
-# DNA-methylation-status-governs-repeat-restriction-by-the-HUSH-MORC2-complex
+# DNA methylation governs the sensitivity of repeats to restriction by the HUSH-MORC2 corepressor
 
 ## Bulk-RNAseq analysis
 
